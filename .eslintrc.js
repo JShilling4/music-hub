@@ -1,28 +1,85 @@
 module.exports = {
-  root: true,
-  env: {
-    node: true
-  },
-  'extends': [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended'
-  ],
-  parserOptions: {
-    parser: 'babel-eslint'
-  },
-  rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
-  },
-  overrides: [
-    {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)'
-      ],
-      env: {
-        jest: true
-      }
-    }
-  ]
-}
+    root: true,
+    env: {
+        node: true,
+    },
+    extends: ["plugin:vue/strongly-recommended", "eslint:recommended"],
+    parserOptions: {
+        parser: "babel-eslint",
+    },
+    rules: {
+        "no-console": "off",
+        "no-debugger": "off",
+        "vue/attribute-hyphenation": "warn",
+        "vue/attributes-order": "warn",
+        "vue/component-definition-name-casing": "warn",
+        "vue/component-name-in-template-casing": "warn",
+        "vue/component-tags-order": "warn",
+        "vue/custom-event-name-casing": "warn",
+        "vue/html-button-has-type": "warn",
+        "vue/html-closing-bracket-spacing": "error",
+        "vue/html-indent": "warn",
+        "vue/no-async-in-computed-properties": "warn",
+        "vue/no-confusing-v-for-v-if": "warn",
+        "vue/no-deprecated-data-object-declaration": "warn",
+        "vue/no-deprecated-destroyed-lifecycle": "warn",
+        "vue/no-deprecated-dollar-listeners-api": "warn",
+        "vue/no-deprecated-dollar-scopedslots-api": "warn",
+        "vue/no-deprecated-events-api": "warn",
+        "vue/no-deprecated-filter": "warn",
+        "vue/no-deprecated-functional-template": "warn",
+        "vue/no-deprecated-html-element-is": "warn",
+        "vue/no-deprecated-inline-template": "warn",
+        "vue/no-deprecated-props-default-this": "warn",
+        "vue/no-deprecated-scope-attribute": "warn",
+        "vue/no-deprecated-slot-attribute": "warn",
+        "vue/no-deprecated-slot-scope-attribute": "warn",
+        "vue/no-deprecated-v-bind-sync": "warn",
+        "vue/no-deprecated-v-is": "warn",
+        "vue/no-deprecated-v-on-native-modifier": "warn",
+        "vue/no-deprecated-v-on-number-modifiers": "warn",
+        "vue/no-deprecated-vue-config-keycodes": "warn",
+        "vue/no-dupe-keys": "error",
+        "vue/no-dupe-v-else-if": "error",
+        "vue/no-duplicate-attr-inheritance": "error",
+        "vue/no-duplicate-attributes": "error",
+        "vue/no-empty-component-block": "warn",
+        "vue/no-multiple-template-root": "error",
+        "vue/no-mutating-props": "error",
+        "vue/no-potential-component-option-typo": "warn",
+        "vue/no-ref-as-operand": "error",
+        "vue/no-reserved-component-names": "error",
+        "vue/no-reserved-keys": "error",
+        "vue/no-shared-component-data": "error",
+        "vue/no-side-effects-in-computed-properties": "error",
+        "vue/no-spaces-around-equal-signs-in-attribute": "error",
+        "vue/no-static-inline-styles": "error",
+        "vue/no-template-shadow": "warn",
+        "vue/no-template-target-blank": "warn",
+        "vue/no-textarea-mustache": "warn",
+        "vue/no-this-in-before-route-enter": "error",
+        "vue/no-unregistered-components": "error",
+        "vue/no-unsupported-features": "error",
+        "vue/no-unused-components": "warn",
+        "vue/no-unused-properties": "warn",
+        "vue/no-unused-refs": "warn",
+        "vue/no-unused-vars": "warn",
+        "vue/no-use-v-if-with-v-for": "warn",
+        "vue/no-useless-mustaches": "warn",
+        "vue/no-useless-v-bind": "warn",
+        "vue/require-name-property": "error",
+        "vue/require-v-for-key": "error",
+        "vue/return-in-computed-property": "error",
+        "vue/script-indent": "warn",
+        "vue/v-on-event-hyphenation": "warn",
+        "vue/valid-template-root": "error",
+    },
+    overrides: [
+        {
+            files: ["**/__tests__/*.{j,t}s?(x)", "**/tests/unit/**/*.spec.{j,t}s?(x)"],
+            env: {
+                jest: true,
+            },
+        },
+    ],
+};
