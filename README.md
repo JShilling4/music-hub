@@ -1,34 +1,41 @@
 # music-hub
 
 ## Project setup
-```
+
+```bash
 yarn install
 ```
 
 ### Compiles and hot-reloads for development
-```
-yarn serve
+
+```bash
+yarn serve-dev
 ```
 
 ### Compiles and minifies for production
-```
-yarn build
+
+```bash
+yarn build-prod
 ```
 
 ### Run your unit tests
-```
-yarn test:unit
+
+```bash
+yarn test-unit
 ```
 
 ### Run your end-to-end tests
-```
-yarn test:e2e
+
+```bash
+yarn test-e2e
 ```
 
 ### Lints and fixes files
-```
+
+```bash
 yarn lint
 ```
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
