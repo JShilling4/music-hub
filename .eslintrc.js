@@ -10,6 +10,7 @@ module.exports = {
     rules: {
         "no-console": "off",
         "no-debugger": "off",
+        "no-unused-vars": "warn",
         "vue/attribute-hyphenation": "warn",
         "vue/attributes-order": "warn",
         "vue/component-definition-name-casing": "warn",
