@@ -95,7 +95,8 @@
 </template>
 
 <script>
-import { auth, usersCollection } from "@/includes/firebase";
+import { mapActions } from "vuex";
+// import { auth, usersCollection } from "@/includes/firebase";
 
 export default {
     name: "RegisterForm",
@@ -114,6 +115,8 @@ export default {
         };
     },
     methods: {
+        ...mapActions(["logUserIn", "registerUser"]),
+
         async register(values) {
             this.registerShowAlert = true;
             this.registerInSubmission = true;
@@ -122,12 +125,8 @@ export default {
                 "Please wait while your account is created.";
 
             // attempt to create the user account
-            let userCredentials = null;
             try {
-                userCredentials = await auth.createUserWithEmailAndPassword(
-                        values.email,
-                        values.password
-                    );
+                await this.registerUser(values);
             } catch (error) {
                 this.registerInSubmission = false;
                 this.registerAlertVariant = "bg-red-500";
@@ -137,24 +136,10 @@ export default {
                 return;
             }
 
-            // add the user to the db
-            try {
-                await usersCollection.add({
-                    name: values.name,
-                    email: values.email,
-                });
-            } catch (error) {
-                this.registerInSubmission = false;
-                this.registerAlertVariant = "bg-red-500";
-                this.registerAlertMessage =
-                    "An error occurred. Please try again.";
-                console.log(error);
-                return;
-            }
-
+            // successful login actions
+            this.logUserIn();
             this.registerAlertVariant = "bg-green-500";
             this.registerAlertMessage = "Your account has been created.";
-            console.log(values, userCredentials);
         },
     },
 };

@@ -1,20 +1,48 @@
 import { createStore } from "vuex";
+import { auth, usersCollection } from "@/includes/firebase";
 
 export default createStore({
     state: {
         authModalShow: false,
+        userLoggedIn: false,
     },
     mutations: {
-        SHOW_AUTH_MODAL: (state, value) => {
+        TOGGLE_AUTH_MODAL: (state, value) => {
             state.authModalShow = value;
-        }
+        },
+        TOGGLE_LOGGED_IN: (state, value) => {
+            state.userLoggedIn = value;
+        },
     },
     actions: {
-        openAuthModal: ({commit}) => {
-            commit("SHOW_AUTH_MODAL", true);
+        openAuthModal: ({ commit }) => {
+            commit("TOGGLE_AUTH_MODAL", true);
         },
-        closeAuthModal: ({commit}) => {
-            commit("SHOW_AUTH_MODAL", false);
-        }
-    }
+        closeAuthModal: ({ commit }) => {
+            commit("TOGGLE_AUTH_MODAL", false);
+        },
+
+        async registerUser(context, payload) {
+            const userCredentials = await auth.createUserWithEmailAndPassword(
+                payload.email,
+                payload.password
+            );
+
+            await usersCollection.doc(userCredentials.user.uid).set({
+                name: payload.name,
+                email: payload.email,
+            });
+
+            await userCredentials.user.updateProfile({
+                displayName: payload.name,
+            })
+        },
+
+        logUserIn: ({ commit }) => {
+            commit("TOGGLE_LOGGED_IN", true);
+        },
+        logUserOut: ({ commit }) => {
+            commit("TOGGLE_LOGGED_IN", false);
+        },
+    },
 });
