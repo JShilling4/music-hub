@@ -1,4 +1,5 @@
 <template>
+    <!-- Notifications -->
     <div
         v-if="registerShowAlert"
         class="text-white text-center font-bold p-5 mb-4"
@@ -6,6 +7,7 @@
     >
         {{ registerAlertMessage }}
     </div>
+    <!-- Form -->
     <vee-form
         :validation-schema="registerValidationSchema"
         @submit="register"
@@ -54,7 +56,6 @@
                     type="password"
                     placeholder="Password"
                     v-bind="field"
-                    @focus="log(errors)"
                 >
                 <div
                     v-for="error in errors"
@@ -94,6 +95,8 @@
 </template>
 
 <script>
+import { auth, usersCollection } from "@/includes/firebase";
+
 export default {
     name: "RegisterForm",
     data() {
@@ -111,17 +114,47 @@ export default {
         };
     },
     methods: {
-        register(values) {
+        async register(values) {
             this.registerShowAlert = true;
             this.registerInSubmission = true;
             this.registerAlertVariant = "bg-blue-500";
             this.registerAlertMessage =
                 "Please wait while your account is created.";
 
+            // attempt to create the user account
+            let userCredentials = null;
+            try {
+                userCredentials = await auth.createUserWithEmailAndPassword(
+                        values.email,
+                        values.password
+                    );
+            } catch (error) {
+                this.registerInSubmission = false;
+                this.registerAlertVariant = "bg-red-500";
+                this.registerAlertMessage =
+                    "An error occurred. Please try again.";
+                console.log(error);
+                return;
+            }
+
+            // add the user to the db
+            try {
+                await usersCollection.add({
+                    name: values.name,
+                    email: values.email,
+                });
+            } catch (error) {
+                this.registerInSubmission = false;
+                this.registerAlertVariant = "bg-red-500";
+                this.registerAlertMessage =
+                    "An error occurred. Please try again.";
+                console.log(error);
+                return;
+            }
+
             this.registerAlertVariant = "bg-green-500";
             this.registerAlertMessage = "Your account has been created.";
-
-            console.log(values);
+            console.log(values, userCredentials);
         },
     },
 };

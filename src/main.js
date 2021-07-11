@@ -3,10 +3,11 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import VeeValidatePlugin from "./includes/validation";
+import './includes/firebase';
 import "./assets/tailwind.css";
 import "./assets/main.css";
 
-let app = createApp(App);
+const app = createApp(App);
 
 app.use(store);
 app.use(router);
