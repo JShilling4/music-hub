@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 import AppHeader from "@/components/AppHeader.vue";
 import AuthModal from "@/components/AuthModal.vue";
@@ -62,6 +62,12 @@ export default {
     },
     computed: {
         ...mapState(["authModalShow"])
+    },
+    methods: {
+        ...mapActions(["initLogin"]),
+    },
+    created() {
+        this.initLogin();
     }
 }
 </script>

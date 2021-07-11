@@ -38,6 +38,13 @@ export default createStore({
             })
         },
 
+        initLogin({commit}) {
+            const user = auth.currentUser;
+
+            if (user) {
+                commit("TOGGLE_LOGGED_IN", true);
+            }
+        },
         logUserIn: ({ commit }) => {
             commit("TOGGLE_LOGGED_IN", true);
         },
