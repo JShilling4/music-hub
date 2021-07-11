@@ -96,7 +96,6 @@
 
 <script>
 import { mapActions } from "vuex";
-// import { auth, usersCollection } from "@/includes/firebase";
 
 export default {
     name: "RegisterForm",
@@ -115,7 +114,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions(["logUserIn", "registerUser"]),
+        ...mapActions(["toggleLoggedInStatus", "registerUser"]),
 
         async register(values) {
             this.registerShowAlert = true;
@@ -137,9 +136,10 @@ export default {
             }
 
             // successful login actions
-            this.logUserIn();
+            this.toggleLoggedInStatus(true);
             this.registerAlertVariant = "bg-green-500";
             this.registerAlertMessage = "Your account has been created.";
+            window.location.reload();
         },
     },
 };

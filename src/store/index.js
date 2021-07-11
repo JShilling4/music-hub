@@ -10,7 +10,7 @@ export default createStore({
         TOGGLE_AUTH_MODAL: (state, value) => {
             state.authModalShow = value;
         },
-        TOGGLE_LOGGED_IN: (state, value) => {
+        TOGGLE_LOGGED_IN_STATUS: (state, value) => {
             state.userLoggedIn = value;
         },
     },
@@ -42,14 +42,19 @@ export default createStore({
             const user = auth.currentUser;
 
             if (user) {
-                commit("TOGGLE_LOGGED_IN", true);
+                commit("TOGGLE_LOGGED_IN_STATUS", true);
             }
         },
-        logUserIn: ({ commit }) => {
-            commit("TOGGLE_LOGGED_IN", true);
+        async logInUser({commit}, payload) {
+            await auth.signInWithEmailAndPassword(payload.email, payload.password);
+            commit("TOGGLE_LOGGED_IN_STATUS", true);
         },
-        logUserOut: ({ commit }) => {
-            commit("TOGGLE_LOGGED_IN", false);
+        async logOutUser({commit}) {
+            await auth.signOut();
+            commit("TOGGLE_LOGGED_IN_STATUS", false);
+        },
+        toggleLoggedInStatus: ({ commit }, value) => {
+            commit("TOGGLE_LOGGED_IN_STATUS", value);
         },
     },
 });

@@ -14,19 +14,28 @@
                 <!-- Primary Navigation -->
                 <ul class="flex flex-row mt-1">
                     <!-- Navigation Links -->
-                    <li>
+                    <li v-if="!userLoggedIn">
                         <a
                             class="px-2 text-white"
                             href="#"
                             @click.prevent="onAuthLinkClick"
                         >Login / Register</a>
                     </li>
-                    <li>
-                        <a
-                            class="px-2 text-white"
-                            href="#"
-                        >Manage</a>
-                    </li>
+                    <template v-else>
+                        <li>
+                            <a
+                                class="px-2 text-white"
+                                href="#"
+                            >Manage</a>
+                        </li>
+                        <li>
+                            <a
+                                class="px-2 text-white"
+                                href="#"
+                                @click.prevent="logOut"
+                            >Log Out</a>
+                        </li>
+                    </template>
                 </ul>
             </div>
         </nav>
@@ -34,16 +43,23 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
     name: "AppHeader",
+    computed: {
+        ...mapState(["userLoggedIn"]),
+    },
     methods: {
-        ...mapActions(["openAuthModal"]),
+        ...mapActions(["openAuthModal", "logOutUser"]),
 
         onAuthLinkClick() {
             this.openAuthModal();
+        },
+        async logOut() {
+            await this.logOutUser();
+            window.location.reload();
         }
-    }
-}
+    },
+};
 </script>

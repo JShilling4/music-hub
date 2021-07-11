@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
     name: "LoginForm",
     data() {
@@ -71,17 +73,27 @@ export default {
         };
     },
     methods: {
-        login(values) {
+        ...mapActions(["logInUser"]),
+
+        async login(values) {
             this.loginInSubmission = true;
             this.loginShowAlert = true;
             this.loginAlertVariant = "bg-blue-500";
             this.loginAlertMessage =
                 "Please wait while we log you into your account...";
 
+            try {
+                await this.logInUser(values);
+            } catch (error) {
+                this.loginInSubmission = false;
+                this.loginAlertVariant = "bg-red-500";
+                this.loginAlertMessage = "Invalid login credentials."
+                return;
+            }
+
             this.loginAlertVariant = "bg-green-500";
             this.loginAlertMessage = "You have successfully logged in!";
-
-            console.log(values);
+            window.location.reload();
         },
     },
 };
