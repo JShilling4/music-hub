@@ -35,23 +35,27 @@ export default createStore({
 
             await userCredentials.user.updateProfile({
                 displayName: payload.name,
-            })
+            });
         },
 
-        initLogin({commit}) {
+        initLogin({ commit }) {
             const user = auth.currentUser;
 
             if (user) {
                 commit("TOGGLE_LOGGED_IN_STATUS", true);
             }
         },
-        async logInUser({commit}, payload) {
-            await auth.signInWithEmailAndPassword(payload.email, payload.password);
-            commit("TOGGLE_LOGGED_IN_STATUS", true);
+        logInUser({ commit }, payload) {
+            return auth.signInWithEmailAndPassword(payload.email, payload.password).then(() => {
+                commit("TOGGLE_LOGGED_IN_STATUS", true);
+            }).catch((error) => console.log(error));
         },
-        async logOutUser({commit}) {
-            await auth.signOut();
-            commit("TOGGLE_LOGGED_IN_STATUS", false);
+        logOutUser({ commit }) {
+            return auth.signOut()
+                .then(() => {
+                    commit("TOGGLE_LOGGED_IN_STATUS", false);
+                })
+                .catch((error) => console.log(error));
         },
         toggleLoggedInStatus: ({ commit }, value) => {
             commit("TOGGLE_LOGGED_IN_STATUS", value);

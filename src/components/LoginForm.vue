@@ -87,7 +87,8 @@ export default {
             } catch (error) {
                 this.loginInSubmission = false;
                 this.loginAlertVariant = "bg-red-500";
-                this.loginAlertMessage = "Invalid login credentials."
+                this.loginAlertMessage = "Invalid login credentials.";
+                console.log(error);
                 return;
             }
 

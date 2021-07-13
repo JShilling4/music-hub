@@ -5,10 +5,13 @@
     >
         <nav class="container mx-auto flex justify-start items-center py-5 px-4">
             <!-- App Name -->
-            <a
+            <router-link
                 class="text-white font-bold uppercase text-2xl mr-4"
-                href="#"
-            >Music Hub</a>
+                :to="{ name: 'home' }"
+                exact-active-class="no-active"
+            >
+                Music Hub
+            </router-link>
 
             <div class="flex flex-grow items-center">
                 <!-- Primary Navigation -->
@@ -23,10 +26,12 @@
                     </li>
                     <template v-else>
                         <li>
-                            <a
+                            <router-link
                                 class="px-2 text-white"
-                                href="#"
-                            >Manage</a>
+                                :to="{ name: 'manage' }"
+                            >
+                                Manage
+                            </router-link>
                         </li>
                         <li>
                             <a
@@ -58,8 +63,13 @@ export default {
         },
         async logOut() {
             await this.logOutUser();
-            window.location.reload();
-        }
+
+            if(this.$route.meta.requiresAuth) {
+                this.$router.push({ name: "home" });
+                window.location.reload();
+            }
+
+        },
     },
 };
 </script>
