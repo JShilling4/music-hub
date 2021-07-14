@@ -21,6 +21,7 @@
             >
                 <h5>Drop your files here</h5>
             </div>
+            <input type="file" multiple @change="uploadSong($event)" />
             <hr class="my-6" />
             <!-- Progess Bars -->
             <div
@@ -63,7 +64,7 @@ export default {
         uploadSong(event) {
             this.isDragover = false;
 
-            const files = [...event.dataTransfer.files];
+            const files = event.dataTransfer ? [...event.dataTransfer.files] : [...event.target.files];
             files.forEach((file) => {
                 if (file.type !== "audio/mpeg") {
                     return;
@@ -119,5 +120,10 @@ export default {
             console.log(files);
         },
     },
+    beforeUnmount() {
+        this.uploads.forEach((upload) => {
+            upload.task.cancel();
+        })
+    }
 };
 </script>
