@@ -140,6 +140,10 @@ export default {
 
     watch: {
         sort(newVal) {
+            if (newVal === this.$route.query.sort) {
+                return;
+            }
+
             this.$router.push({
                 query: {
                     sort: newVal,
@@ -199,6 +203,10 @@ export default {
             this.$router.push({ name: "home" });
             return;
         }
+
+        const { sort } = this.$route.query;
+
+        this.sort = sort === "descending" || sort === "ascending" ? sort : "descending";
 
         this.song = docSnapshot.data();
         this.getComments();
