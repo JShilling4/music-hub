@@ -21,7 +21,11 @@
             >
                 <h5>Drop your files here</h5>
             </div>
-            <input type="file" multiple @change="uploadSong($event)" />
+            <input
+                type="file"
+                multiple
+                @change="uploadSong($event)"
+            />
             <hr class="my-6" />
             <!-- Progess Bars -->
             <div
@@ -54,6 +58,12 @@ import { storage, auth, songsCollection } from "@/includes/firebase";
 
 export default {
     name: "Upload",
+    props: {
+        addSong: {
+            type: Function,
+            required: true,
+        },
+    },
     data() {
         return {
             isDragover: false,
@@ -64,7 +74,9 @@ export default {
         uploadSong(event) {
             this.isDragover = false;
 
-            const files = event.dataTransfer ? [...event.dataTransfer.files] : [...event.target.files];
+            const files = event.dataTransfer
+                ? [...event.dataTransfer.files]
+                : [...event.target.files];
             files.forEach((file) => {
                 if (file.type !== "audio/mpeg") {
                     return;
@@ -109,7 +121,10 @@ export default {
                         };
 
                         song.url = await task.snapshot.ref.getDownloadURL();
-                        await songsCollection.add(song);
+                        const songRef = await songsCollection.add(song);
+                        const songSnapshot = await songRef.get();
+
+                        this.addSong(songSnapshot);
 
                         this.uploads[uploadIndex].variant = "bg-green-400";
                         this.uploads[uploadIndex].icon = "fas fa-check";
@@ -117,13 +132,12 @@ export default {
                     }
                 );
             });
-            console.log(files);
         },
     },
     beforeUnmount() {
         this.uploads.forEach((upload) => {
             upload.task.cancel();
-        })
-    }
+        });
+    },
 };
 </script>
