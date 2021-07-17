@@ -33,7 +33,12 @@
                 <!-- Icon -->
                 <i class="fa fa-headphones-alt float-right text-green-400 text-xl"></i>
             </div>
-            <play-list />
+            <ol
+                v-for="song in songs"
+                :key="song.docID"
+            >
+                <song-item :song="song" />
+            </ol>
         </div>
     </section>
 
@@ -41,14 +46,76 @@
 </template>
 
 <script>
+import { songsCollection } from "@/includes/firebase";
 import MusicPlayer from "@/components/MusicPlayer.vue";
-import PlayList from "@/components/PlayList.vue";
+import SongItem from "@/components/SongItem.vue";
 
 export default {
     name: "HomePage",
     components: {
         "music-player": MusicPlayer,
-        "play-list": PlayList
-    }
-}
+        "song-item": SongItem,
+    },
+    data() {
+        return {
+            songs: [],
+            maxPerPage: 25,
+            pendingRequests: false,
+        };
+    },
+    methods: {
+        handleScroll() {
+            const { scrollTop, offsetHeight } = document.documentElement;
+            const { innerHeight } = window;
+            const bottomOfWindow =
+                Math.round(scrollTop) + innerHeight === offsetHeight;
+
+            if (bottomOfWindow) {
+                this.getSongs();
+            }
+        },
+        async getSongs() {
+            if (this.pendingRequest) {
+                return;
+            }
+
+            this.pendingRequest = true;
+
+            let snapshots;
+
+            if (this.songs.length > 0) {
+                const lastDoc = await songsCollection
+                    .doc(this.songs[this.songs.length - 1].docID)
+                    .get();
+                snapshots = await songsCollection
+                    .orderBy("modifiedName")
+                    .startAfter(lastDoc)
+                    .limit(this.maxPerPage)
+                    .get();
+            } else {
+                snapshots = await songsCollection
+                    .orderBy("modifiedName")
+                    .limit(this.maxPerPage)
+                    .get();
+            }
+
+            snapshots.forEach((document) => {
+                this.songs.push({
+                    docID: document.id,
+                    ...document.data(),
+                });
+            });
+
+            this.pendingRequest = false;
+        },
+    },
+    async created() {
+        this.getSongs();
+
+        window.addEventListener("scroll", this.handleScroll);
+    },
+    beforeUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+    },
+};
 </script>
