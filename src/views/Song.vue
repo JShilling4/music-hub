@@ -138,6 +138,16 @@ export default {
         },
     },
 
+    watch: {
+        sort(newVal) {
+            this.$router.push({
+                query: {
+                    sort: newVal,
+                }
+            });
+        }
+    },
+
     methods: {
         async addComment(values, { resetForm }) {
             this.commentInSubmission = true;
