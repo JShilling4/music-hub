@@ -42,6 +42,14 @@
                         </li>
                     </template>
                 </ul>
+
+                <ul class="flex flex-row mt-1 ml-auto">
+                    <li>
+                        <a href="#" class="px-2 text-white" @click.prevent="changeLocale">
+                            {{ currentLocale }}
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
@@ -54,6 +62,10 @@ export default {
     name: "AppHeader",
     computed: {
         ...mapState(["userLoggedIn"]),
+
+        currentLocale() {
+            return this.$i18n.locale === "fr" ? "English" : "French";
+        }
     },
     methods: {
         ...mapActions(["openAuthModal", "logOutUser"]),
@@ -64,12 +76,14 @@ export default {
         async logOut() {
             await this.logOutUser();
 
-            if(this.$route.meta.requiresAuth) {
+            if (this.$route.meta.requiresAuth) {
                 this.$router.push({ name: "home" });
                 window.location.reload();
             }
-
         },
+        changeLocale() {
+            this.$i18n.locale = this.$i18n.locale === "fr" ? "en" : "fr";
+        }
     },
 };
 </script>

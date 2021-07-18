@@ -1,3 +1,8 @@
 {
-  "message": "hello i18n !!"
+  "home": {
+    "listen": "Listen to great music!"
+  },
+  "song": {
+    "commentCount": "No comments | 1 comment | {count} comments"
+  }
 }
