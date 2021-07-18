@@ -1,7 +1,11 @@
 <template>
     <app-header />
 
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+            <component :is="Component"></component>
+        </transition>
+    </router-view>
 
     <music-player />
 
@@ -16,21 +20,35 @@ import AuthModal from "@/components/AuthModal.vue";
 import MusicPlayer from "@/components/MusicPlayer.vue";
 
 export default {
-    name: 'App',
+    name: "App",
     components: {
         "app-header": AppHeader,
         "auth-modal": AuthModal,
         "music-player": MusicPlayer,
-
     },
     computed: {
-        ...mapState(["authModalShow"])
+        ...mapState(["authModalShow"]),
     },
     methods: {
         ...mapActions(["initLogin"]),
     },
     created() {
         this.initLogin();
-    }
-}
+    },
+};
 </script>
+
+<style>
+.fade-enter-from {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    transition: all 0.3s linear;
+}
+
+.fade-leave-to {
+    transition: all .3s linear;
+    opacity: 0;
+}
+</style>
