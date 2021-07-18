@@ -7,12 +7,13 @@ import { auth } from './includes/firebase';
 import Icon from "./directives/icon";
 import "./assets/tailwind.css";
 import "./assets/main.css";
+import i18n from './i18n'
 
 let app;
 
 auth.onAuthStateChanged(() => {
     if(!app) {
-        const app = createApp(App);
+        const app = createApp(App).use(i18n);
 
         app.use(store);
         app.use(router);
