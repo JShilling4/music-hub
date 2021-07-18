@@ -24,9 +24,6 @@
                         {{ song.modifiedName }}
                     </div>
                     <div>{{ song.genre }}</div>
-                    <!-- <div class="song-price">
-                        {{ $n(1, 'currency', 'ja') }}
-                    </div> -->
                 </div>
             </div>
         </section>
@@ -147,7 +144,7 @@ export default {
     },
 
     computed: {
-        ...mapState({userLoggedIn: (state) => state.auth.userLoggedIn}),
+        ...mapState({ userLoggedIn: (state) => state.auth.userLoggedIn }),
 
         sortedComments() {
             return this.comments.slice().sort((a, b) => {
@@ -222,23 +219,25 @@ export default {
         },
     },
 
-    async created() {
-        const docSnapshot = await songsCollection
-            .doc(this.$route.params.id)
-            .get();
+    async beforeRouteEnter(to, from, next) {
+        const docSnapshot = await songsCollection.doc(to.params.id).get();
 
-        if (!docSnapshot.exists) {
-            this.$router.push({ name: "home" });
-            return;
-        }
+        next((vm) => {
+            if (!docSnapshot.exists) {
+                vm.$router.push({ name: "home" });
+                return;
+            }
 
-        const { sort } = this.$route.query;
+            const { sort } = vm.$route.query;
 
-        this.sort =
-            sort === "descending" || sort === "ascending" ? sort : "descending";
+            vm.sort =
+                sort === "descending" || sort === "ascending"
+                    ? sort
+                    : "descending";
 
-        this.song = docSnapshot.data();
-        this.getComments();
+            vm.song = docSnapshot.data();
+            vm.getComments();
+        });
     },
 };
 </script>

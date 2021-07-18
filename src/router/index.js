@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import store from "@/store";
-import Home from "@/views/Home.vue";
 
 const routes = [
     {
         name: "home",
         path: "/",
-        component: Home,
+        component: () => import(/* webpackChunkName: "HomePage" */ "@/views/Home.vue"),
     },
     {
         name: "manage",
@@ -14,7 +13,7 @@ const routes = [
         meta: {
             requiresAuth: true,
         },
-        component: () => import("@/views/Manage.vue"),
+        component: () => import(/* webpackChunkName: "ManagePage" */ "@/views/Manage.vue"),
     },
     {
         path: "/manage",
@@ -23,7 +22,7 @@ const routes = [
     {
         name: "song",
         path: "/song/:id",
-        component: () => import("@/views/Song.vue"),
+        component: () => import(/* webpackChunkName: "SongPage" */ "@/views/Song.vue"),
     },
     {
         name: "404",
