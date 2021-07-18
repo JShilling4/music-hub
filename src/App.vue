@@ -3,6 +3,8 @@
 
     <router-view></router-view>
 
+    <music-player />
+
     <auth-modal v-show="authModalShow" />
 </template>
 
@@ -11,12 +13,14 @@ import { mapState, mapActions } from "vuex";
 
 import AppHeader from "@/components/AppHeader.vue";
 import AuthModal from "@/components/AuthModal.vue";
+import MusicPlayer from "@/components/MusicPlayer.vue";
 
 export default {
     name: 'App',
     components: {
         "app-header": AppHeader,
         "auth-modal": AuthModal,
+        "music-player": MusicPlayer,
 
     },
     computed: {
