@@ -63,7 +63,7 @@ import { mapActions, mapState } from "vuex";
 export default {
     name: "AppHeader",
     computed: {
-        ...mapState(["userLoggedIn"]),
+        ...mapState({userLoggedIn: (state) => state.auth.userLoggedIn}),
 
         currentLocale() {
             return this.$i18n.locale === "fr" ? "English" : "French";
@@ -80,8 +80,8 @@ export default {
 
             if (this.$route.meta.requiresAuth) {
                 this.$router.push({ name: "home" });
-                window.location.reload();
             }
+            window.location.reload();
         },
         changeLocale() {
             this.$i18n.locale = this.$i18n.locale === "fr" ? "en" : "fr";

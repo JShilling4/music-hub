@@ -15,7 +15,6 @@ export default {
             );
 
             // export default
-            console.log(fileName, componentName);
             app.component(`Base${componentName}`, componentConfig.default || componentConfig);
         });
     },
