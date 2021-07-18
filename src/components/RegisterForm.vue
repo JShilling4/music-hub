@@ -7,6 +7,7 @@
     >
         {{ registerAlertMessage }}
     </div>
+
     <!-- Form -->
     <vee-form
         :validation-schema="registerValidationSchema"
@@ -27,6 +28,7 @@
                 name="name"
             />
         </div>
+
         <!-- Email -->
         <div class="mb-3">
             <label class="inline-block mb-2">Email</label>
@@ -42,6 +44,7 @@
                 name="email"
             />
         </div>
+
         <!-- Password -->
         <div class="mb-3">
             <label class="inline-block mb-2">Password</label>
@@ -66,6 +69,7 @@
                 </div>
             </vee-field>
         </div>
+
         <!-- Confirm Password -->
         <div class="mb-3">
             <label class="inline-block mb-2">Confirm Password</label>

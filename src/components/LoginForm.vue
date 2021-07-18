@@ -27,6 +27,7 @@
                 name="email"
             />
         </div>
+
         <!-- Password -->
         <div class="mb-3">
             <label class="inline-block mb-2">Password</label>
@@ -42,6 +43,7 @@
                 name="password"
             />
         </div>
+
         <!-- Submit Login Form -->
         <button
             type="submit"

@@ -17,8 +17,9 @@
                 >
                     <i class="fas fa-play"></i>
                 </button>
+
+                <!-- Song Info -->
                 <div class="z-50 text-left ml-8">
-                    <!-- Song Info -->
                     <div class="text-3xl font-bold">
                         {{ song.modifiedName }}
                     </div>
@@ -29,6 +30,7 @@
                 </div>
             </div>
         </section>
+
         <!-- Form -->
         <section
             id="comments"
@@ -51,11 +53,14 @@
                     >
                         {{ commentAlertMessage }}
                     </div>
+
+                    <!-- Comment Form -->
                     <vee-form
                         v-if="userLoggedIn"
                         :validation-schema="schema"
                         @submit="addComment"
                     >
+                        <!-- Comment -->
                         <vee-field
                             as="textarea"
                             name="comment"
@@ -67,6 +72,8 @@
                             class="text-red-600"
                             name="comment"
                         />
+
+                        <!-- Submit Comment -->
                         <button
                             type="submit"
                             class="py-1.5 px-3 rounded text-white bg-green-600 block"
@@ -75,6 +82,7 @@
                             Submit
                         </button>
                     </vee-form>
+
                     <!-- Sort Comments -->
                     <select
                         v-model="sort"
@@ -91,6 +99,7 @@
                 </div>
             </div>
         </section>
+
         <!-- Comments -->
         <ul class="container mx-auto">
             <li

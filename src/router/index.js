@@ -9,11 +9,6 @@ const routes = [
         component: Home,
     },
     {
-        name: "about",
-        path: "/about",
-        component: () => import("@/views/About.vue"),
-    },
-    {
         name: "manage",
         path: "/manage-music",
         meta: {

@@ -11,6 +11,7 @@
             <!-- This element is to trick the browser into centering the modal contents. -->
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
 
+            <!-- Title | Tabs | Forms -->
             <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden
                     shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
             >
@@ -57,6 +58,7 @@
                         </li>
                     </ul>
 
+                    <!-- Forms -->
                     <login-form v-if="tab === 'login'" />
                     <register-form v-else />
                 </div>

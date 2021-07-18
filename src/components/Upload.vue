@@ -40,8 +40,9 @@
                 >
                     <i :class="upload.icon"></i> {{ upload.name }}
                 </div>
+
+                <!-- Inner Progress Bar -->
                 <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-                    <!-- Inner Progress Bar -->
                     <div
                         class="transition-all progress-bar"
                         :class="upload.variant"

@@ -13,6 +13,7 @@
                 Music Hub
             </router-link>
 
+            <!-- Primary Navigation | Language Toggle -->
             <div class="flex flex-grow items-center">
                 <!-- Primary Navigation -->
                 <ul class="flex flex-row mt-1">
@@ -43,6 +44,7 @@
                     </template>
                 </ul>
 
+                <!-- Language Toggle -->
                 <ul class="flex flex-row mt-1 ml-auto">
                     <li>
                         <a href="#" class="px-2 text-white" @click.prevent="changeLocale">
