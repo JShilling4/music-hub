@@ -1,8 +1,8 @@
 {
-  "home": {
-    "listen": "Listen to great music!"
-  },
-  "song": {
-    "commentCount": "No comments | 1 comment | {count} comments"
-  }
+    "home": {
+        "listen": "Listen to great music!"
+    },
+    "song": {
+        "commentCount": "No comments | 1 comment | {count} comments"
+    }
 }
