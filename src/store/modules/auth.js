@@ -29,6 +29,7 @@ export default {
                 displayName: payload.name,
             });
         },
+
         initLogin({ commit }) {
             const user = auth.currentUser;
 
@@ -36,28 +37,25 @@ export default {
                 commit("TOGGLE_LOGGED_IN_STATUS", true);
             }
         },
-        logInUser({ commit }, payload) {
-            return auth
-                .signInWithEmailAndPassword(payload.email, payload.password)
-                .then(() => {
-                    commit("TOGGLE_LOGGED_IN_STATUS", true);
-                })
-                .catch((error) => console.log(error));
+
+        async logInUser({ commit }, payload) {
+            await auth.signInWithEmailAndPassword(payload.email, payload.password);
+            commit("TOGGLE_LOGGED_IN_STATUS", true);
         },
-        logOutUser({ commit }) {
-            return auth
-                .signOut()
-                .then(() => {
-                    commit("TOGGLE_LOGGED_IN_STATUS", false);
-                })
-                .catch((error) => console.log(error));
+
+        async logOutUser({ commit }) {
+            await auth.signOut();
+            commit("TOGGLE_LOGGED_IN_STATUS", false);
         },
+
         openAuthModal: ({ commit }) => {
             commit("TOGGLE_AUTH_MODAL", true);
         },
+
         closeAuthModal: ({ commit }) => {
             commit("TOGGLE_AUTH_MODAL", false);
         },
+
         toggleLoggedInStatus: ({ commit }) => {
             commit("TOGGLE_LOGGED_IN_STATUS");
         },
