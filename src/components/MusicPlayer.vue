@@ -4,6 +4,7 @@
             <!-- Play/Pause Button -->
             <div class="float-left w-7 h-7 leading-3">
                 <button
+                    id="player-play-button"
                     type="button"
                     @click.prevent="toggleAudio"
                 >
