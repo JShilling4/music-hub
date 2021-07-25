@@ -9,8 +9,8 @@ export default {
         TOGGLE_AUTH_MODAL: (state, value) => {
             state.authModalShow = value;
         },
-        TOGGLE_LOGGED_IN_STATUS: (state, value) => {
-            state.userLoggedIn = value;
+        TOGGLE_LOGGED_IN_STATUS: (state) => {
+            state.userLoggedIn = !state.userLoggedIn;
         },
     },
     actions: {
@@ -58,8 +58,8 @@ export default {
         closeAuthModal: ({ commit }) => {
             commit("TOGGLE_AUTH_MODAL", false);
         },
-        toggleLoggedInStatus: ({ commit }, value) => {
-            commit("TOGGLE_LOGGED_IN_STATUS", value);
+        toggleLoggedInStatus: ({ commit }) => {
+            commit("TOGGLE_LOGGED_IN_STATUS");
         },
     },
 };

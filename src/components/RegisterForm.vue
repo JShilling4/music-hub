@@ -140,7 +140,7 @@ export default {
             }
 
             // successful login actions
-            this.toggleLoggedInStatus(true);
+            this.toggleLoggedInStatus();
             this.registerAlertVariant = "bg-green-500";
             this.registerAlertMessage = "Your account has been created.";
             window.location.reload();
