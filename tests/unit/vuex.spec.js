@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import auth from "@/store/modules/auth";
+import player from "@/store/modules/player";
 import { cloneDeep } from "lodash";
 
 jest.mock("@/includes/firebase", () => ({
@@ -38,4 +39,16 @@ describe("Vuex Store", () => {
         await store.dispatch("logInUser", { email: "", password: "" });
         expect(store.state.auth.userLoggedIn).toBe(true);
     });
+
+    it("playing returns true if audio is playing", () => {
+        const state = {
+            sound: {
+                playing: () => true,
+            }
+        }
+
+        const result = player.getters.playing(state);
+
+        expect(result).toEqual(true);
+    })
 });
